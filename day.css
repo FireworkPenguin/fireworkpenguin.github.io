@@ -10,10 +10,6 @@ body {
     grid-row-gap: 10px;
     grid-template-columns: 15% auto;
     grid-template-rows: auto 100px;
-
-    background-image: linear-gradient(#80a8ff, #ccdcff);
-    color: black;
-
 }
 
 .sidebar {
@@ -50,6 +46,10 @@ body {
 				display: grid;
 				grid-template-rows: 30px auto;
 				grid-template-columns: auto 90% auto;
+				
+				background-image: linear-gradient(#80a8ff, #ccdcff);
+   				color: black;
+
 
 			}
 
