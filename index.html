@@ -3,40 +3,101 @@
 
   <head>
 
-		<title="FireworkPenguin Home Page">
+		<title> FireworkPenguin Home Page </title>
 
 		<meta charset="UTF-8">
 		<meta name="description" content="My Page">
 		<meta name="author" content="FireworkPenguin">
 
+		<style>
+
+			body {
+
+				width: 100%;
+				height: 100%;
+				padding: 0px;
+				margin: 0%;
+				
+				display: grid;
+				grid-column-gap: 10px;
+				grid-row-gap: 10px;
+				grid-template-columns: 15% auto;
+				grid-template-rows: auto 100px;
+
+			}
+
+			.sidebar {
+
+				padding-left: 20px;
+
+				background-color: white;
+				color: black;
+				display: inline-block;
+				min-height: 100%;
+				grid-column: 1;
+				grid-row: 1 / span 2;
+
+			}
+
+			.main {
+
+				display: inline-block;
+				grid-row: 1;
+				grid-column: 2;
+
+			}
+
+			footer{
+
+				bottom:0px;
+				display: inline-block;
+				grid-row: 2;
+				grid-column: 2;
+
+				text-align: center;
+
+
+			}
+
+
+			.day{
+
+				background-image: linear-gradient(#80a8ff, #ccdcff);
+				color: black;
+			}
+
+			.night{
+
+				background-image: linear-gradient(#00081a, #002066);
+				color: white;
+
+			}
+		
+		
+		</style>
+
   </head>
 
-  <body>
+  <body class="night">
 
 		<!--
-		Head Area
+		Side bar Area
 		-->
-		<div>
+		<div class="sidebar">
 
 			<p> FireworkPenguin Homepage </p>
+
+			<p> <a href="/videos.html"> Videos </a> </p>
+			<p> <a href="/projects.html"> Projects </a> </p>
+			<p> <a href="/games.html"> Games </a> </p>
+			<p> <a href="/contact.html"> Contact </a> </p>
 
 		</div>
 
 		<!--
 		Main Page
 		-->
-		<div>
-
-			<p> Site Contents: <p>
-
-			<p> <a href="/videos.html"> Videos </a> </p>
-			<p> <a href="/projects.html"> Projects </a> </p>
-			<p> <a href="/games.html"> Games </a> </p>
-			<p> <a href="/index.html"> Place Holder 1 </a> </p>
-			<p> <a href="/index.html"> Place Holder 2 </a> </p>
-			<p> <a href="/contact.html"> Contact </a> </p>
-
-			<br>
+		<div class="main">
 
 			<p style="color:red"> Hello World </p>
 
