@@ -8,9 +8,7 @@
 		<meta charset="UTF-8">
 		<meta name="description" content="My Page">
 		<meta name="author" content="FireworkPenguin">
-
-		<link href="/day.css" rel="stylesheet" type="text/css">
-<!--
+		
 		<style>
 
 			body {
@@ -21,8 +19,6 @@
 				margin: 0%;
 				
 				display: grid;
-				grid-column-gap: 10px;
-				grid-row-gap: 10px;
 				grid-template-columns: 15% auto;
 				grid-template-rows: auto 100px;
 
@@ -34,7 +30,7 @@
 
 				background-color: white;
 				color: black;
-				display: inline-block;
+				padding: 5px;
 				min-height: 100%;
 				grid-column: 1;
 				grid-row: 1 / span 2;
@@ -43,41 +39,52 @@
 
 			.main {
 
-				display: inline-block;
 				grid-row: 1;
 				grid-column: 2;
+				
+				display: grid;
+				grid-template-rows: 30px auto;
+				grid-template-columns: auto 90% auto;
 
 			}
+
+			.articleSection{
+			
+				grid-column: 2;
+				grid-row: 2;
+				
+				//background-color: green;
+			
+			}
+			
+			.section{
+			
+				background-color: white;
+				min-height: 200px;
+				padding: 10px;
+				border-style: solid;
+				border-color: black;
+				border-width: 5px;
+			
+			
+			
+			}
+
 
 			footer{
 
 				bottom:0px;
-				display: inline-block;
 				grid-row: 2;
 				grid-column: 2;
-
 				text-align: center;
 
 
 			}
-
-
-			.day{
-
-				background-image: linear-gradient(#80a8ff, #ccdcff);
-				color: black;
-			}
-
-			.night{
-
-				background-image: linear-gradient(#00081a, #002066);
-				color: white;
-
-			}
-		
-		
+			
 		</style>
--->
+		
+		<link href="./day.css" rel="stylesheet" type="text/css">
+	
   </head>
 
   <body>
@@ -89,10 +96,10 @@
 
 			<p> FireworkPenguin Homepage </p>
 
-			<p> <a href="/videos.html"> Videos </a> </p>
-			<p> <a href="/projects.html"> Projects </a> </p>
-			<p> <a href="/games.html"> Games </a> </p>
-			<p> <a href="/contact.html"> Contact </a> </p>
+			<p> <a href="./videos.html"> Videos </a> </p>
+			<p> <a href="./projects.html"> Projects </a> </p>
+			<p> <a href="./games.html"> Games </a> </p>
+			<p> <a href="./contact.html"> Contact </a> </p>
 
 		</div>
 
@@ -100,9 +107,36 @@
 		Main Page
 		-->
 		<div class="main">
+		
+			<div class="articleSection">
+			
+				<div class="section"> 
+				
+					<p style="color:red"> Hello World </p>
+					
+				</div>
+				
+				<div class="section"> 
+				
+					<p style="color:red"> Hello World </p>
+					
+				</div>
+				
+				<div class="section"> 
+				
+					<p style="color:red"> Hello World </p>
+					
+				</div>
+				
+				<div class="section"> 
+				
+					<p style="color:red"> Hello World </p>
+					
+				</div>
 
-			<p style="color:red"> Hello World </p>
 
+			</div>
+			
 		</div>
 
 		<!--
