@@ -2,210 +2,79 @@
 <html>
 
 	<head>
-	
+
 		<title> Trivia Game </title>
 
 		<meta charset="UTF-8">
 		<meta name="description" content="Trivia Game">
 		<meta name="author" content="">
-	
-		<style>
-			.startScreen{
-				
-				width:  70%;
-				height: 70%;
-				
-				padding:10%;
-				
-			}
-			
-			.triviaScreen{
-			
-				display:grid;
-				
-				grid-template-columns: auto 80% auto;
-				grid-template-rows: auto 10% 30% 30% 10% auto;
-			
-				//display:none;
-				
-				height:90%;
-				width:90%;
-				
 
-				
-				padding:5%;
-			}
-			
-			.endScreen{
-				
-				width:100%;
-				height:100%;
-				
-				
-				padding:50px;
-			}
-			
-			.trivalSelection{
-			
-				display:grid;
-				
-				grid-template-columns: auto 95% auto;
-				grid-template-rows: auto 10% 75% 10% auto;
-				justify-content: center;
-				align-content: center;
-			
-				
-				height:100%;
-				width:100%;				
-		
-			}
-			
-			body{
-			
-				display:grid;
-				grid-template-columns: auto 80% auto;
-				grid-template-rows: auto 80% auto;
-				justify-content: center;
-				align-content: center;
-				
-				min-height: 100%;
-				height: 100%;
-				margin: 0px;
-				
-				font-size:24px;
-				background-image: linear-gradient(#00081a, #002066);
-				
-			}
-			
-			html{
-			
-				min-height:100%;
-				min-width:100%;
-				height:100%;
-				width:100%;
-			
-			}
-			
-			.main{
-			
-				grid-column: 2;
-				grid-row: 2;
-						
-				border-style: solid;
-				border: 2px solid black; 
-				border-collapse: collapse;	
+		<link href="./trivia.css" rel="stylesheet" type="text/css">
 
-				//background-color:#177013;
-				background-color:#FFFFFF;
-			
-			}
-			
-			table{
-				width:100%;
-				height:100%;
-			}
-			
-			table, th, td, tr{
-			
-				border: 2px solid black; 
-				border-collapse: collapse;
-				text-align:center;
-			
-			}
-			
-			.correctButton{
-			
-				background-color green;
-			
-			}
-			
-			.wrongButton{
-			
-				background-color: red;
-				
-			}
-			
-			.unselectedButton{
-			
-				background-color:blue;
-				color: orange;
-			
-			}
-			
-			
-		
-		</style>
 	</head>
-	
+
 	<body>
-	
+
 		<div class="main" id="main">
-			
+
+			<noscript>
+				Your browser does not support JavaScript!
+			</noscript>
+
 		</div>
-		
+
 		<script>
-		
-			let activeGame = {}
-			
+
 			//Save data
-			
-			//localStorage.savedata = 
-			
-			
-			setup();	
-			//startGame();
-			
+			let activeGame = {}
+			setup();
+
 			//Called when the page is first loaded
 			function setup(){
-				
+
 				activeGame.name = ""
-			
+				activeGame.score = 0;
+
 				if(typeof(window.localStorage) !== "undefined"){
-				
-					console.log("Storage Works");
-					
-					if(typeof(window.localStorage.getItem('scores')) == undefined){
-						window.localStorage.setItem('scores',[
-						{name:null,score:1},{name:null,score:2},{name:null,score:3},
-						{name:null,score:4},{name:null,score:5},{name:null,score:6},
-						{name:null,score:7},{name:null,score:8},{name:null,score:9},
-						{name:null,score:10}]);
-					}
-					
-					
-					if(typeof(window.localStorage.getItem("name")) != null || typeof(window.localStorage.getItem("name")) != undefined){
+
+					if(window.localStorage.getItem("name") != null){
 						activeGame.name = window.localStorage.getItem('name');
-					} else {
-						window.localStorage.setItem('name', '')
 					}
-				
-				} else {
-				
-					console.log("Storage Failed");
-				
-				}				
-			
+
+					console.log("Storage Works");
+
+					if(window.localStorage.getItem('scores') == null){
+						window.localStorage.setItem('scores',JSON.stringify([
+							{name:null,score:1},{name:null,score:2},{name:null,score:3},
+							{name:null,score:4},{name:null,score:5},{name:null,score:6},
+							{name:null,score:7},{name:null,score:8},{name:null,score:9},
+							{name:null,score:10}
+						]));
+					}
+
+				}
+
 				displayStartScreen();
-				
+
 				document.getElementById('nameForm').value = activeGame.name;
-				
+
 			}
-			
+
 			//Function that is called when starting a game
 			function startGame() {
-			
+
 				//Make the game object
-				
-				
-				//Question 
-				
+
 				activeGame = {};
 
+
+				//Sort out the names
 				activeGame.name = "";
-				if(document.getElementById('nameForm').value !== undefined){
+				if(document.getElementById('nameForm').value != null){
 					activeGame.name = document.getElementById('nameForm').value;
+					window.localStorage.setItem('name', activeGame.name);
 				}
-				
+
 				activeGame.score = 0;
 				activeGame.activeQuestion = 0;
 				activeGame.title = "";
@@ -233,144 +102,136 @@
 					{question:"What colour is the sky?", answer:1, res1:"Blue",res2:"Orange",res3:"Red",res4:"Green",exp:""}, //19
 					{question:"What colour is the sky?", answer:1, res1:"Blue",res2:"Orange",res3:"Red",res4:"Green",exp:""}  //20
 				];
-				
+
 				//Sample question object: {question:"", res1:"", res2:"", res3:"", res4:"", answer:0}
-				
+
 				displayTriviaSelection();
-				
+
 				//Move the question Selection viewview
 				//document.getElementById("trivalSelection").style.
 			}
-		
-		
+
+
 			function selectQuestion(col, row){
-			
+
 				let index = (col*5) + row;
-			
-			
+
+
 				if(index%2){
 					activeGame.selectedQuestions[index] = 1;
 				}else{
 					activeGame.selectedQuestions[index] = -1;
 				}
-			
+
 				activeGame.activeQuestion = index;
-			
+
 				displayTriviaQuestion();
-			
+
 				console.log(`q${index}`);
-			
+
 			}
-			
+
 			function selectAnswer(ans) {
-			
+
 				//They are correct
 				if(activeGame.questions[activeGame.activeQuestion].answer == ans){
-				
+
 					activeGame.selectedQuestions[activeGame.activeQuestion] = 1;
 					activeGame.score += ((activeGame.activeQuestion % 5)+1) * 200;
 
 				//If they are wrong
 				} else {
-			
+
 					activeGame.selectedQuestions[activeGame.activeQuestion] = -1;
 					activeGame.score -= ((activeGame.activeQuestion % 5)+1) * 200;
-			
+
 				}
-				
+
 				displayTriviaQuestion();
-				
+
 				let x = 0;
-				
+
 				for(x=1; x<5; x++){
-				
+
 					document.getElementById(`opt${x}`).onclick = "";
-				
+
 					//The correct answer
 					if(x == activeGame.questions[activeGame.activeQuestion].answer){
 						document.getElementById(`opt${x}`).style = "background-color:green; color:purple;";
-					
+
 					//The wrong answeres
 					}else{
 						document.getElementById(`opt${x}`).style = "background-color:red; color:green;";
 					}
-					
+
 				}
-				
+
 				//Add the explination and the next button
 				let nextButton = "<div onclick='displayEndScreen()'> Finished </div>";
-				
+
 				for (x = 0; x < 25; x++){
-				
+
 					if(activeGame.selectedQuestions[x] == 0){
 						nextButton = "<div onclick='displayTriviaSelection()'> Continue </div>";
 						break;
 					}
-				
+
 				}
-				
+
 				document.getElementById("AnswerSection").innerHTML = `<div> ${activeGame.questions[activeGame.activeQuestion].exp} </div> <br> ${nextButton}`
 				activeGame.activeQuestion = -1;
-				
+
 			}
-		
-			
+
+
 			function displayStartScreen(){
-			
+
 				document.getElementById("main").innerHTML = `<!-- Start Screen -->
 				<div class="startScreen" id="startScreen">
-				
-					<div style="height:5%; text-align:center;"></div>
-					
-					<div style="height:20%; text-align:center; border-style: solid; border: 2px solid black; border-collapse: collapse;	"> 
-						Game Title 
-					</div>
-					
-					<div style="height:25%"></div>
-					
-					<div style="text-align:center; height:30%;" id="QuestionSelection">
-					
-						<div style="display:inline-block; padding: 5px; width:20%; height:20%; background-color:aqua;"  onclick='displayLeaderBoard()'> Scores </div>
-						<div style="display:inline-block; padding: 5px; width:20%; height:20%; background-color:aqua;"> Sources </div>
-						<div style="display:inline-block; padding: 5px; width:20%; height:20%; background-color:aqua;" onclick="startGame()"> Start </div>
 
+
+					<div style="grid-column: 2 / 5; grid-row: 2; text-align: center;">
+						Game Title
 					</div>
-					
-					<div style="height:5%;"> </div>
-					
-					<div style="text-align:left;">
-						<input type="text" style="display:inline-block; width:100%; height:42px; font-size:24px;" id="nameForm" value='${activeGame.name}' maxlength="128">
+
+						<div style="grid-column: 4; grid-row: 3; background-color:silver; border-style: solid; border-width: thin; height: 70%; width:70%; text-align: center; margin:auto;" onclick='displayLeaderBoard()'> Scores </div>
+						<div style="grid-column: 3; grid-row: 3; background-color:silver; border-style: solid; border-width: thin; height: 70%; width:70%; text-align: center; margin:auto;" onclick="displaySources()"> Sources </div>
+						<div style="grid-column: 2; grid-row: 3; background-color:lime; border-style: solid; border-width: thin; height: 70%; width:70%; text-align: center; margin:auto;" onclick="startGame()"> Start </div>
+
+
+					<div style="text-align:left; grid-column: 2 / 5; grid-row: 4;">
+						<input type="text" style="display:inline-block; border-style: solid; border-width: thick; width:100%; height:42px; font-size:24px;" id="nameForm" placeholder="Name" value='${activeGame.name}' maxlength="64" />
 					</div>
-					
+
 				</div>`
-			
+
 			}
-			
+
 			function displayTriviaSelection(){
-			
+
 				document.getElementById("main").innerHTML = `<!-- Main Area  -->
 				<div class="trivalSelection" id="trivalSelection">
-				
+
 					<!-- -->
-					<div style="grid-column: 2; grid-row: 2;"> 
-					
-						<div style="display:inline-block; text-align: center;"> ${activeGame.title} </div> 
-					
+					<div style="grid-column: 2; grid-row: 2;">
+
+						<div style="display:inline-block; text-align: center;"> ${activeGame.title} </div>
+
 					</div>
-				
+
 					<!-- -->
 					<table style="grid-column: 2; grid-row: 3;">
-						
+
 						<!-- The Titles of the caterogies -->
 						<tr>
-							<th id="questionheader0"> ${activeGame.caterogies[0] || 'Category 1'} </th>
-							<th id="questionheader1"> ${activeGame.caterogies[1] || 'Category 2'} </th>
-							<th id="questionheader2"> ${activeGame.caterogies[2] ||'Category 3'} </th>
-							<th id="questionheader3"> ${activeGame.caterogies[3] ||'Category 4'} </th>
-							<!-- <th id="questionheader4"> ${activeGame.caterogies[4] ||'Category 5'} </th>  -->
+							<th class="headersC" id="questionheader0"> ${activeGame.caterogies[0] || 'Category 1'} </th>
+							<th class="headersC" id="questionheader1"> ${activeGame.caterogies[1] || 'Category 2'} </th>
+							<th class="headersC" id="questionheader2"> ${activeGame.caterogies[2] ||'Category 3'} </th>
+							<th class="headersC" id="questionheader3"> ${activeGame.caterogies[3] ||'Category 4'} </th>
+							<!-- <th class="headersC" id="questionheader4"> ${activeGame.caterogies[4] ||'Category 5'} </th>  -->
 						</tr>
-						
-						
+
+
 						<!-- Easy Questions -->
 						<tr>
 							<td id="q0" class="unselectedButton" onclick="selectQuestion(0,0)"> &#36;200 </button> </td>
@@ -378,8 +239,8 @@
 							<td id="q10" class="unselectedButton" onclick="selectQuestion(2,0)"> &#36;200 </button> </td>
 							<td id="q15" class="unselectedButton" onclick="selectQuestion(3,0)"> &#36;200 </button> </td>
 							<!-- <td id="q20" class="unselectedButton" onclick="selectQuestion(4,0)"> &#36;200 </button> </td>  -->
-						</tr>				
-						
+						</tr>
+
 
 						<!-- -->
 						<tr>
@@ -388,9 +249,9 @@
 							<td id="q11" class="unselectedButton" onclick="selectQuestion(2,1)"> &#36;400 </button> </td>
 							<td id="q16" class="unselectedButton" onclick="selectQuestion(3,1)"> &#36;400 </button> </td>
 							<!-- <td id="q21" class="unselectedButton" onclick="selectQuestion(4,1)"> &#36;400 </button> </td>  -->
-						</tr>				
-						
-						
+						</tr>
+
+
 						<!-- -->
 						<tr>
 							<td id="q2" class="unselectedButton" onclick="selectQuestion(0,2)"> &#36;600 </button> </td>
@@ -398,9 +259,9 @@
 							<td id="q12" class="unselectedButton" onclick="selectQuestion(2,2)"> &#36;600 </button> </td>
 							<td id="q17" class="unselectedButton" onclick="selectQuestion(3,2)"> &#36;600 </button> </td>
 							<!-- <td id="q22" class="unselectedButton" onclick="selectQuestion(4,2)"> &#36;600 </button> </td>  -->
-						</tr>				
-						
-						
+						</tr>
+
+
 						<!-- -->
 						<tr>
 							<td id="q3" class="unselectedButton" onclick="selectQuestion(0,3)"> &#36;800 </button> </td>
@@ -408,9 +269,9 @@
 							<td id="q13" class="unselectedButton" onclick="selectQuestion(2,3)"> &#36;800 </button> </td>
 							<td id="q18" class="unselectedButton" onclick="selectQuestion(3,3)"> &#36;800 </button> </td>
 							<!-- <td id="q23" class="unselectedButton" onclick="selectQuestion(4,3)"> &#36;800 </button> </td>  -->
-						</tr>				
-						
-						
+						</tr>
+
+
 						<!-- Hardest Questions -->
 						<tr>
 							<td id="q4"   class="unselectedButton" onclick="selectQuestion(0,4)"> &#36;1000 </button> </td>
@@ -419,146 +280,280 @@
 							<td id="q19"  class="unselectedButton" onclick="selectQuestion(3,4)"> &#36;1000 </button> </td>
 							<!-- <td id="q24" class="unselectedButton" onclick="selectQuestion(4,4)"> &#36;1000 </button> </td>   -->
 						</tr>
-							
-							
+
+
 					</table>
 
 					<!-- -->
 					<div id="GameStatus" style="grid-column: 2; grid-row: 4; padding-top:20px; font-size:24px; width: 100%;">
-							<div style="display:inline-block; text-align: left;"> Player: ${activeGame.name || 'You'} </div> 
+							<div style="display:inline-block; text-align: left;"> Player: ${activeGame.name || 'You'} </div>
 							<div style="display:inline-block; text-align: right;" id="Score"> Score: &#36; ${activeGame.score}</div>
 					</div>
-						
+
 				</div>`;
-				
+
 				let x = 0;
 				for (x = 0; x<20; x++){
-					
+
 					//Not selected, can skip
 					if(activeGame.selectedQuestions[x] == 0){
 						continue;
 					}
-					
+
 					//Was correctly selected
 					if(activeGame.selectedQuestions[x] == 1){
 						document.getElementById(`q${x}`).style = "background-color:green; color:purple;";
 					}
-					
+
 					//Was incorrectly selected
 					if(activeGame.selectedQuestions[x] == -1){
 						document.getElementById(`q${x}`).style = "background-color:red; color:green;";
 					}
-					
+
 					document.getElementById(`q${x}`).onclick = "";
-				
-				} 
-			
+
+				}
+
 			}
-			
+
 			function displayTriviaQuestion(){
-			
-			
+
+
 				document.getElementById('main').innerHTML = `<!-- Triva Questions  -->
 					<div class="triviaScreen" id="triviaScreen">
 						<div id="gameQuestion" style="grid-row:2; grid-column:2;"> ${activeGame.questions[activeGame.activeQuestion].question} </div>
-						<br>
+
 						<table id="answerButtons" style="grid-row:3; grid-column:2;">
-							
+
 							<tr>
 								<td onclick="selectAnswer(1)" id="opt1"> ${activeGame.questions[activeGame.activeQuestion].res1} </td>
 								<td onclick="selectAnswer(2)" id="opt2"> ${activeGame.questions[activeGame.activeQuestion].res2} </td>
 							</tr>
-							
+
 							<tr>
 								<td onclick="selectAnswer(3)" id="opt3"> ${activeGame.questions[activeGame.activeQuestion].res3} </td>
 								<td onclick="selectAnswer(4)" id="opt4"> ${activeGame.questions[activeGame.activeQuestion].res4} </td>
 							</tr>
-							
+
 						</table>
-						<br>
+
 						<div id="AnswerSection" style="grid-row:4; grid-column:2;"> </div>
-						<br>
+
+
 						<div id="GameStatus" style="grid-column: 2; grid-row: 5; padding-top:20px; font-size:24px; width: 100%;">
-							<div style="display:inline-block; text-align: left;"> Player: ${activeGame.name || 'You'} </div> 
+							<div style="display:inline-block; text-align: left;"> Player: ${activeGame.name || 'You'} </div>
 							<div style="display:inline-block; text-align: right;" id="Score"> Score: &#36; ${activeGame.score}</div>
 						</div>
 					</div>`
-			
+
 			}
-			
+
 			function displayEndScreen(){
-			
-				document.getElementById('main').innerHTML = `<div style="padding:5%;">
-				<div> Game completed </div>
-				
-				<table id="highscoreTable">
-				
-					<tr> <th> Name </th> <th> Score </th> </tr>
-				
+
+				document.getElementById('main').innerHTML = `<div class="endScreen">
+				<div style="grid-column:2; grid-row: 2;"> Game completed </div>
+
+				<table style="grid-column:2; grid-row: 3; font-size: 16px;" id="highscoreTable" style=>
+
+					<tr> <th class="headersA"> Name </th> <th class="headersA"> Score </th> </tr>
+
 				</table>
-				
-				<div onclick="displayStartScreen();"> Main Menu </div>
-				
+
+				<div style="grid-column:2; grid-row: 4;" onclick="displayStartScreen();" >
+					<div style="margin:15px; margin:15px; background-color:#00EE00; color: black; width:15%; height:55%; font-size:16px; text-align: center;" > Main Menu </div>
+				</div>
+
 				</div>`;
-				
+
 				let scoreData = [{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},
-				{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0}]; 
-				
-				if(typeof(window.localStorage) !== undefined){
-					
-					if(typeof(window.localStorage.getItem('scores')) != null){
-						scoreData = window.localStorage.getItem('scores');
+				{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0}];
+
+				if(typeof(window.localStorage) !== 'undefined'){
+
+					if(window.localStorage.getItem('scores') != null){
+						scoreData = JSON.parse(window.localStorage.getItem('scores'));
 					}
-				
-				}	
-			
+
+				}
+
 				let x = 0;
 				let hasPlayerBeenNotInserted = true;
-				
-				let playerString = `<tr> <td>  ${activeGame.name} </td> <td> ${activeGame.score} </td> </tr>`
-				
+
+				let playerString = `<tr> <td> &bigstar; ${activeGame.name} </td> <td> ${activeGame.score} </td> </tr>`
+
 				for(x = 0; x < 10; x++){
-				
+
 					if(activeGame.score >= scoreData[x].score && hasPlayerBeenNotInserted){
 						document.getElementById("highscoreTable").innerHTML += playerString;
 						hasPlayerBeenNotInserted = false;
 					}
-				
+
 					let oldScore = `<tr> <td>  ${scoreData[x].name} </td> <td> ${scoreData[x].score} </td> </tr>`
 					document.getElementById("highscoreTable").innerHTML += oldScore;
-				
+
 				}
-			
+
 				if(hasPlayerBeenNotInserted){
-				
+
 					document.getElementById("highscoreTable").innerHTML +=playerString;
-				
+
 				}
-			
-			
+
+				//update the score
+				if(typeof(window.localStorage) !== 'undefined'){
+
+					scoreData.push({name:activeGame.name,score:activeGame.score})
+					scoreData.sort(((a,b)=>{return (b.score - a.score)}));
+					scoreData.pop();
+					window.localStorage.setItem('scores',JSON.stringify(scoreData));
+
+				};
+
+
 			}
-			
+
 			function displayLeaderBoard(){
-			
-				document.getElementById('main').innerHTML = `<div>
-				
-				<table id="highscoreTable">
-				
+
+				document.getElementById('main').innerHTML = `<div style="padding:5%;">
+
+				<table id='highscoreTable2'>
+
 					<tr> <th> Name </th> <th> Score </th> </tr>
-				
-					<tr> <td> </td> <td> </td> </tr>
-				
+
 				</table>
-				
-				<div onclick="displayStartScreen();"> Main Menu </div>
-				
+
+				<div style='height:100px; width:200px; padding-top:5px;' onclick="displayStartScreen();"> Main Menu </div>
+
 				</div>`;
-				
+
+				let scoreData = [{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},
+				{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0}];
+
+				if(typeof(window.localStorage) !== 'undefined'){
+
+					if(window.localStorage.getItem('scores') != null){
+						scoreData = JSON.parse(window.localStorage.getItem('scores'));
+					}
+
+				}
+
+				let x = 0;
+				for(x = 0; x < 10; x++){
+
+					let oldScore = `<tr> <td>  ${scoreData[x].name} </td> <td> ${scoreData[x].score} </td> </tr>`
+					document.getElementById("highscoreTable2").innerHTML += oldScore;
+
+				}
+
 			}
-			
-			
-		
-		
+
+			function displaySources(){
+
+
+				document.getElementById("main").innerHTML = `<div class='CitationSection'>
+
+					<div style="grid-column: 2; grid-row:2;"> Sources Used </div>
+
+					<div style="font-size:8px; overflow:auto; grid-column: 2; grid-row:3;">
+
+						<p>
+						The Editors of Encyclopaedia Britannica. Volstead Act. Last updated November 21st, 2019. Britannica.com
+						<a href="https://www.britannica.com/topic/Volstead-Act"> https://www.britannica.com/topic/Volstead-Act</a>
+						</p>
+
+						<p>
+						History.com editors. Prohibition. October 29th, 2009. Last updated November 6th, 2019. History.com
+						<a href="https://www.history.com/topics/roaring-twenties/prohibition"> https://www.history.com/topics/roaring-twenties/prohibition </a>
+						</p>
+
+						<p>
+						The Editors of Encyclopaedia Britannica. Repeal. Last updated November 20th, 2019. Britannica.com
+						<a href=" https://www.britannica.com/topic/Volstead-A"> https://www.britannica.com/topic/Volstead-A</a>
+						</p>
+
+						<p>
+						Editors of Washington State University Digital Exhibits. The Unintended Consequences of Prohibition.Washington State University.com.
+						<a href="http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition"> http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition></a>
+						</p>
+
+						<p>
+						Editors of cdigs.uwindsor.ca. Detroit-Windsor Funnel. Cdigs.uwindsor.ca.
+						<a href=" http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel"> http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel</a>
+						</p>
+
+						<p>
+						Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+						<a href=" https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol"> https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol </a>
+						</p>
+
+						<p>
+						Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+						<a href=" https://prohibition.osu.edu/anti-saloon-league"> https://prohibition.osu.edu/anti-saloon-league </a>
+						</p>
+
+						<p>
+						Weadock, Tim. Moonshine Cars. December 10th, 2013. Historic Vehicle Association.com.
+						<a href=" https://www.historicvehicle.org/moonshine-cars/"> https://www.historicvehicle.org/moonshine-cars/ </a>
+						</p>
+
+						<p>
+						History.com editors. The St. Valentine’s Day Massacre. November 13th, 2009. Last updated July 27th, 2019. History.com.
+						<a href=" https://www.history.com/this-day-in-history/the-st-valentines-day-massacre"> https://www.history.com/this-day-in-history/the-st-valentines-day-massacre </a>
+						</p>
+
+						<p>
+						Bellamy, J. Matthew. The Challenge of Prohibition. Labattheritage.com.
+						<a href="https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition"> https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition </a>
+						</p>
+
+						<p>
+						Editors of Whitehouse.gov.com. Woodrow Wilson. Whitehouse.gov.com.
+						<a href="https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/"> https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/ </a>
+						</p>
+
+						<p>
+						History.com Editors. Saint Valentine’s Day Massacre. November 9th, 2009. Last updated November 2nd, 2018. History.com.
+						<a href="https://www.history.com/topics/crime/saint-valentines-day-massacre"> https://www.history.com/topics/crime/saint-valentines-day-massacre </a>
+						</p>
+
+						<p>
+						Sandbrook, Dominic. How Prohibition backfired and gave American an era of gangsters and speakeasies. August 26th, 2012. The Guardian.com.
+						<a href="https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies"> https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies </a>
+						</p>
+
+						<p>
+						Miller, Rupert. On This Day 1933… Beer Goes Back on Sale in US. April 7th, 2017. The Drinks Business.com.
+						<a href="https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/"> https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/</a>
+						</p>
+
+						<p>
+						Catcher, Jess. 12 Surprising And Sneaky Facts About Prohibition. Little things.com
+						<a href="https://www.littlethings.com/prohibition-facts"> https://www.littlethings.com/prohibition-facts </a>
+						</p>
+
+						<p>
+						Hallowell, Gerald. Prohibition in Canada. August 12th, 2013. Last updated March 4th, 2015. The canadian encyclopedia.com.
+						<a href="https://www.thecanadianencyclopedia.ca/en/article/prohibition"> https://www.thecanadianencyclopedia.ca/en/article/prohibition </a>
+						</p>
+
+					</div>
+
+					<div style="grid-column: 2; grid-row:4;" onclick="displayStartScreen();"> Main Menu </div>
+
+				<div>`;
+
+
+
+
+
+			}
+
+
+
+
+
+
+
 		</script>
 
 	</body>
