@@ -48,10 +48,10 @@
 					if(window.localStorage.getItem('scores') == null){
 
 						window.localStorage.setItem('scores',JSON.stringify([
-							{name:"Super Paper",score:3400},{name:"",score:2},{name:"",score:3},
-							{name:"",score:4},{name:"",score:5},{name:"",score:6},
-							{name:"null",score:7},{name:"null",score:8},{name:"xX_triviaMaster_Xx",score:1000},
-							{name:"Al Chololic",score:8500}
+							{name:"Super Paper",score:3400},{name:"null",score:2},{name:"null",score:3},
+							{name:"null",score:4},{name:"null",score:5},{name:"null",score:6},
+							{name:"null",score:7},{name:"Leon",score:8000},{name:"xX_triviaMaster_Xx",score:1000},
+							{name:"Al Chololic",score:7500}
 						].sort(((a,b)=>{return(b.score-a.score)}))
 						));
 
@@ -67,6 +67,91 @@
 
 			//Function that is called when starting a game
 			function startGame() {
+
+				let sources = [
+				`<p>
+				The Editors of Encyclopaedia Britannica. Volstead Act. Last updated November 21st, 2019. Britannica.com
+				<a href="https://www.britannica.com/topic/Volstead-Act"> https://www.britannica.com/topic/Volstead-Act</a>
+				</p>`,
+
+				`<p>
+				History.com editors. Prohibition. October 29th, 2009. Last updated November 6th, 2019. History.com
+				<a href="https://www.history.com/topics/roaring-twenties/prohibition"> https://www.history.com/topics/roaring-twenties/prohibition </a>
+				</p>`,
+
+				`<p>
+				The Editors of Encyclopaedia Britannica. Repeal. Last updated November 20th, 2019. Britannica.com
+				<a href=" https://www.britannica.com/topic/Volstead-A"> https://www.britannica.com/topic/Volstead-A</a>
+				</p>`,
+
+				`<p>
+				Editors of Washington State University Digital Exhibits. The Unintended Consequences of Prohibition.Washington State University.com.
+				<a href="http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition"> http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition></a>
+				</p>`,
+
+				`<p>
+				Editors of cdigs.uwindsor.ca. Detroit-Windsor Funnel. Cdigs.uwindsor.ca.
+				<a href=" http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel"> http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel</a>
+				</p>`,
+
+				`<p>
+				Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+				<a href=" https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol"> https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol </a>
+				</p>`,
+
+				`<p>
+				Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+				<a href=" https://prohibition.osu.edu/anti-saloon-league"> https://prohibition.osu.edu/anti-saloon-league </a>
+				</p>`,
+
+				`<p>
+				Weadock, Tim. Moonshine Cars. December 10th, 2013. Historic Vehicle Association.com.
+				<a href=" https://www.historicvehicle.org/moonshine-cars/"> https://www.historicvehicle.org/moonshine-cars/ </a>
+				</p>`,
+
+				`<p>
+				History.com editors. The St. Valentine’s Day Massacre. November 13th, 2009. Last updated July 27th, 2019. History.com.
+				<a href=" https://www.history.com/this-day-in-history/the-st-valentines-day-massacre"> https://www.history.com/this-day-in-history/the-st-valentines-day-massacre </a>
+				</p>`,
+
+				`<p>
+				Bellamy, J. Matthew. The Challenge of Prohibition. Labattheritage.com.
+				<a href="https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition"> https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition </a>
+				</p>`,
+
+				`<p>
+				Editors of Whitehouse.gov.com. Woodrow Wilson. Whitehouse.gov.com.
+				<a href="https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/"> https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/ </a>
+				</p>`,
+
+				`<p>
+				History.com Editors. Saint Valentine’s Day Massacre. November 9th, 2009. Last updated November 2nd, 2018. History.com.
+				<a href="https://www.history.com/topics/crime/saint-valentines-day-massacre"> https://www.history.com/topics/crime/saint-valentines-day-massacre </a>
+				</p>`,
+
+				`<p>
+				Sandbrook, Dominic. How Prohibition backfired and gave American an era of gangsters and speakeasies. August 26th, 2012. The Guardian.com.
+				<a href="https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies"> https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies </a>
+				</p>`,
+
+				`<p>
+				Miller, Rupert. On This Day 1933… Beer Goes Back on Sale in US. April 7th, 2017. The Drinks Business.com.
+				<a href="https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/"> https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/</a>
+				</p>`,
+
+				`<p>
+				Catcher, Jess. 12 Surprising And Sneaky Facts About Prohibition. Little things.com
+				<a href="https://www.littlethings.com/prohibition-facts"> https://www.littlethings.com/prohibition-facts </a>
+				</p>`,
+
+				`<p>
+				Hallowell, Gerald. Prohibition in Canada. August 12th, 2013. Last updated March 4th, 2015. The canadian encyclopedia.com.
+				<a href="https://www.thecanadianencyclopedia.ca/en/article/prohibition"> https://www.thecanadianencyclopedia.ca/en/article/prohibition </a>
+				</p>`
+			]
+
+
+
 
 				//Make the game object
 
@@ -87,29 +172,30 @@
 				activeGame.caterogies = ["Enactment ", "Movement", "Groups", "Other"];
 				activeGame.questions = [
 
-					{question:"What was the name of the law that started prohibition in the united states?", answer:2, res1:"",res2:"Volstead Act",res3:"",res4:"",exp:""}, //1
-					{question:"What year did prohibition go into effect?", answer:4, res1:"",res2:"",res3:"",res4:"1920",exp:""}, //2
-					{question:"Which ratification of the constitution amendment started prohibition?", answer:3, res1:"16th", res2:"21st", res3:"18th", res4:"20th", exp:""}, //3
-					{question:"Did prohibition happen in Canada as well?", answer:1, res1:"Yes",res2:"No",res3:"",res4:"",exp:""},  //20
-					{question:"Who was the president when prohibition was enacted?", answer:1, res1:"",res2:"",res3:"",res4:"Woodrow WIlson",exp:""}, //14
+					{question:"What was the name of the law that started prohibition in the united states?", answer:2, res1:"Temperance Act",res2:"Volstead Act",res3:"Alcohol Abstance Act",res4:"Anti-Saloon Act",exp:sources[0]}, //1
+					{question:"What year did prohibition go into effect?", answer:3, res1:"1918",res2:"1919",res3:"1920",res4:"1922",exp:sources[1]}, //2
+					{question:"Which ratification of the constitution amendment started prohibition?", answer:3, res1:"16th", res2:"21st", res3:"18th", res4:"20th", exp:sources[2]}, //3
+					/**/{question:"Did prohibition happen in Canada as well?", answer:1, res1:"Yes",res2:"No",res3:"&#32;",res4:"&#32;",exp:sources[19]},  //20
+					{question:"Who was the president when prohibition was enacted?", answer:4, res1:"Herbert Hoover",res2:"Franklin D. Roosevelt",res3:"Theodore Roosevelt",res4:"Woodrow Wilson" ,exp:sources[13]}, //14
 
-					{question:"The Agnes. W was an example of what type of smuggling device?", answer:1, res1:"Ship",res2:"",res3:"",res4:"",exp:""}, //13
-					{question:"Someone who illegally transports alcohol is called a what?", answer:1, res1:"A Bootlegger",res2:"",res3:"",res4:"",exp:""}, //5
-					{question:"Home-brewed beer was named (answer), after Earth's natural satellite.", answer:1, res1:"Moonshine ",res2:"",res3:"",res4:"",exp:""}, //9
-					{question:"What was the most popular way to legally obtain alcohol during prohibition?", answer:1, res1:"",res2:"",res3:"Medicinal Alcohol",res4:"",exp:""}, //7
-					{question:"What was the most popular smuggling route from Canada to the USA?", answer:1, res1:"The Detroit-Windsor Funnel",res2:"",res3:"",res4:"",exp:""}, //6
+					{question:"The Agnes. W was an example of what type of smuggling device?", answer:1, res1:"Ship",res2:"Car",res3:"Truck",res4:"Plane",exp:sources[12]}, //13
+					{question:"Someone who illegally transports alcohol is called a what?", answer:1, res1:"A Bootlegger",res2:"A Pirate", res3:"A Jaywalker", res4:"Mobseter", exp:sources[4]}, //5
+					{question:"Home-brewed beer was named (answer), after Earth's natural satellite.", answer:1, res1:"Moonshine ",res2:"Whiskey",res3:"Gin",res4:"Wine",exp:sources[8]}, //9
+					{question:"What was the most popular way to legally obtain alcohol during prohibition?", answer:3, res1:"Theft",res2:"bootlegging",res3:"Medicinal Alcohol",res4:"",exp:sources[6]}, //7
 
-					{question:"Bugs Moran was the arch-enemy of what infamous Chicago smuggler and gangster?", answer:1, res1:"Al Capone",res2:"",res3:"",res4:"",exp:""}, //11
-					{question:"Chicago had how many bars selling drinks illegally in 1921?", answer:1, res1:"4000",res2:"500",res3:"8000",res4:"1000",exp:""}, //12
-					{question:"The climax of crime during prohibition is said to be what event?", answer:1, res1:"",res2:"St Valentine's Day Massacre",res3:"",res4:"",exp:""}, //15
-					{question:"The Anti-(Answer) League was one of the driving forces behind the starting of prohibition", answer:1, res1:"Saloon",res2:"",res3:"",res4:"",exp:""}, //8
-					{question:"Which modern racing organization draws its roots from moonshiners and smugglers?", answer:1, res1:"NASCAR",res2:"",res3:"",res4:"",exp:""}, //10
+					{question:"What was the most popular smuggling route from Canada to the USA?", answer:1, res1:"The Detroit-Windsor Funnel", res2:"", res3:"", res4:"", exp:sources[5]}, //6
 
-					{question:"True or False: Prohibition actually increased the amount Americans consumed alcohol", answer:1, res1:"True",res2:"False",res3:"",res4:"",exp:""}, //1
-					{question:"Which president put an end to the prohibition era?", answer:2, res1:"",res2:"Franklin D. Roosevelt",res3:"",res4:"",exp:""}, //4
-					{question:"What 1933 law allowed the sale of beverages with less than 4% alcohol level?", answer:1, res1:"The Cullen-Harrison Act",res2:"",res3:"",res4:"",exp:""}, //17
-					{question:"The biggest factor contributing to the repeal of prohibition was?", answer:1, res1:"",res2:"",res3:"The great depression",res4:"",exp:""}, //18
-					{question:"True or False: You could legally still consume alcohol during prohibition.", answer:1, res1:"True",res2:"False",res3:"",res4:"",exp:""} //19
+					{question:"Bugs Moran was the arch-enemy of what infamous Chicago smuggler and gangster?", answer:1, res1:"Al Capone",res2:"Owney Madden",res3:"Tom Dragna",res4:"Bill Lovett",exp:sources[10]}, //11
+					{question:"Chicago had how many bars selling drinks illegally in 1921?", answer:1, res1:"4000",res2:"500",res3:"8000",res4:"1000",exp:sources[11]}, //12
+					{question:"The climax of crime during prohibition is said to be what event?", answer:1, res1:"",res2:"St Valentine's Day Massacre",res3:"",res4:"St. Bartholomew's Day",exp:sources[14]}, //15
+					{question:"The Anti-(Answer) League was one of the driving forces behind the starting of prohibition", answer:1, res1:"Saloon",res2:"Drinking",res3:"Liquid",res4:"Wet",exp:sources[7]}, //8
+					{question:"Which modern racing organization draws its roots from moonshiners and smugglers?", answer:1, res1:"NASCAR",res2:"",res3:"",res4:"",exp:sources[9]}, //10
+
+					/**/{question:"True or False: Prohibition actually increased the amount Americans consumed alcohol", answer:2, res1:"True",res2:"False",res3:"&#32;",res4:"&#32;",exp:sources[15]}, //16
+					{question:"Which president put an end to the prohibition era?", answer:2, res1:"Herbert Hoover",res2:"Franklin D. Roosevelt",res3:"Theodore Roosevelt",res4:"Woodrow Wilson",exp:sources[3]}, //4
+					{question:"What 1933 law allowed the sale of beverages with less than 4% alcohol level?", answer:1, res1:"The Cullen-Harrison Act",res2:"",res3:"",res4:"",exp:sources[16]}, //17
+					{question:"The biggest factor contributing to the repeal of prohibition was?", answer:3, res1:"",res2:"",res3:"The great depression",res4:"",exp:sources[17]}, //18
+					/**/{question:"True or False: You could legally still consume alcohol during prohibition.", answer:1, res1:"True",res2:"False",res3:"&#32;",res4:"&#32;",exp:sources[18]} //19
 
 				];
 
