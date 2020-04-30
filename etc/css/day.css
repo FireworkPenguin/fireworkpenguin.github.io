@@ -1,9 +1,16 @@
-.main {
+body{
+
 	color: black;
+	background-image: linear-gradient(#80a8ff, #ccdcff);
+
+}
+
+.main {
+
 }
 
 .skycolour{
-	background-image: linear-gradient(#80a8ff, #ccdcff);
+
 }
 
 .sidebarButton1{

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<title> Trivia Game </title>
+
+		<meta charset="UTF-8">
+		<meta name="description" content="Trivia Game">
+		<meta name="author" content="">
+
+		<link href="./trivia.css" rel="stylesheet" type="text/css">
+
+	</head>
+
+	<body>
+
+		<div class="main" id="main">
+
+			<noscript>
+				Your browser does not support JavaScript!
+			</noscript>
+
+		</div>
+
+		<script>
+
+			//Save data
+			let activeGame = {}
+			setup();
+
+			//Called when the page is first loaded
+			function setup(){
+
+				activeGame.name = ""
+				activeGame.score = 0;
+
+				if(typeof(window.localStorage) !== "undefined"){
+
+					if(window.localStorage.getItem("name") != null){
+						activeGame.name = window.localStorage.getItem('name');
+					}
+
+					console.log("Storage Works");
+
+					window.localStorage.removeItem('scores');
+
+					if(window.localStorage.getItem('scores') == null){
+
+						window.localStorage.setItem('scores',JSON.stringify([
+							{name:"Super Paper",score:3400},{name:"MailScabbed",score:6000},{name:"SyrupCrew",score:7800},
+							{name:"StonewallAccompany",score:5400},{name:"prizeking",score:5000},{name:"vacummOfDoom",score:4400},
+							{name:"WhIsKeYcAdMiUm",score:6600},{name:"Leon",score:8000},{name:"xX_triviaMaster_Xx",score:1000},
+							{name:"Al Chololic",score:7600}
+						].sort(((a,b)=>{return(b.score-a.score)}))
+						));
+
+					}
+
+				}
+
+				displayStartScreen();
+
+				document.getElementById('nameForm').value = activeGame.name;
+
+			}
+
+			//Function that is called when starting a game
+			function startGame() {
+
+				let sources = [
+				`<p style="font-size:12px;">
+				The Editors of Encyclopaedia Britannica. Volstead Act. Last updated November 21st, 2019. Britannica.com
+				<a href="https://www.britannica.com/topic/Volstead-Act"> https://www.britannica.com/topic/Volstead-Act</a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				History.com editors. Prohibition. October 29th, 2009. Last updated November 6th, 2019. History.com
+				<a href="https://www.history.com/topics/roaring-twenties/prohibition"> https://www.history.com/topics/roaring-twenties/prohibition </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				The Editors of Encyclopaedia Britannica. Repeal. Last updated November 20th, 2019. Britannica.com
+				<a href=" https://www.britannica.com/topic/Volstead-A"> https://www.britannica.com/topic/Volstead-A</a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Editors of Washington State University Digital Exhibits. The Unintended Consequences of Prohibition.Washington State University.com.
+				<a href="http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition"> http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition></a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Editors of cdigs.uwindsor.ca. Detroit-Windsor Funnel. Cdigs.uwindsor.ca.
+				<a href=" http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel"> http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel</a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+				<a href=" https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol"> https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+				<a href=" https://prohibition.osu.edu/anti-saloon-league"> https://prohibition.osu.edu/anti-saloon-league </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Weadock, Tim. Moonshine Cars. December 10th, 2013. Historic Vehicle Association.com.
+				<a href=" https://www.historicvehicle.org/moonshine-cars/"> https://www.historicvehicle.org/moonshine-cars/ </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				History.com editors. The St. Valentine’s Day Massacre. November 13th, 2009. Last updated July 27th, 2019. History.com.
+				<a href=" https://www.history.com/this-day-in-history/the-st-valentines-day-massacre"> https://www.history.com/this-day-in-history/the-st-valentines-day-massacre </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Bellamy, J. Matthew. The Challenge of Prohibition. Labattheritage.com.
+				<a href="https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition"> https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Editors of Whitehouse.gov.com. Woodrow Wilson. Whitehouse.gov.com.
+				<a href="https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/"> https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/ </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				History.com Editors. Saint Valentine’s Day Massacre. November 9th, 2009. Last updated November 2nd, 2018. History.com.
+				<a href="https://www.history.com/topics/crime/saint-valentines-day-massacre"> https://www.history.com/topics/crime/saint-valentines-day-massacre </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Sandbrook, Dominic. How Prohibition backfired and gave American an era of gangsters and speakeasies. August 26th, 2012. The Guardian.com.
+				<a href="https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies"> https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Miller, Rupert. On This Day 1933… Beer Goes Back on Sale in US. April 7th, 2017. The Drinks Business.com.
+				<a href="https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/"> https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/</a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Catcher, Jess. 12 Surprising And Sneaky Facts About Prohibition. Little things.com
+				<a href="https://www.littlethings.com/prohibition-facts"> https://www.littlethings.com/prohibition-facts </a>
+				</p>`,
+
+				`<p style="font-size:12px;">
+				Hallowell, Gerald. Prohibition in Canada. August 12th, 2013. Last updated March 4th, 2015. The canadian encyclopedia.com.
+				<a href="https://www.thecanadianencyclopedia.ca/en/article/prohibition"> https://www.thecanadianencyclopedia.ca/en/article/prohibition </a>
+				</p>`
+			]
+
+
+
+
+				//Make the game object
+
+				activeGame = {};
+
+
+				//Sort out the names
+				activeGame.name = "";
+				if(document.getElementById('nameForm').value != null){
+					activeGame.name = document.getElementById('nameForm').value;
+					window.localStorage.setItem('name', activeGame.name);
+				}
+
+				activeGame.score = 0;
+				activeGame.activeQuestion = 0;
+				activeGame.title = "";
+				activeGame.selectedQuestions = [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0];
+				activeGame.caterogies = ["Enactment ", "Movement", "Groups", "Other"];
+				activeGame.questions = [
+
+					{question:"What was the name of the law that started prohibition in the united states?", answer:2, res1:"Temperance Act",res2:"Volstead Act",res3:"Alcohol Abstance Act",res4:"Anti-Saloon Act",exp:sources[0]}, //1
+					{question:"What year did prohibition go into effect?", answer:3, res1:"1918",res2:"1919",res3:"1920",res4:"1922",exp:sources[1]}, //2
+					{question:"Which ratification of the constitution amendment started prohibition?", answer:3, res1:"16th", res2:"21st", res3:"18th", res4:"20th", exp:sources[2]}, //3
+					/**/{question:"Did prohibition happen in Canada as well?", answer:1, res1:"Yes",res2:"No",res3:"No",res4:"No",exp:sources[19]},  //20
+					{question:"Who was the president when prohibition was enacted?", answer:4, res1:"Herbert Hoover",res2:"Franklin D. Roosevelt",res3:"Theodore Roosevelt",res4:"Woodrow Wilson" ,exp:sources[13]}, //14
+
+					{question:"The Agnes. W was an example of what type of smuggling device?", answer:1, res1:"Ship",res2:"Car",res3:"Truck",res4:"Plane",exp:sources[12]}, //13
+					{question:"Someone who illegally transports alcohol is called a what?", answer:1, res1:"A Bootlegger",res2:"A Pirate", res3:"A Jaywalker", res4:"Mobseter", exp:sources[4]}, //5
+					{question:"Home-brewed beer was named (answer), after Earth's natural satellite.", answer:1, res1:"Moonshine ",res2:"Whiskey",res3:"Gin",res4:"Wine",exp:sources[8]}, //9
+					{question:"What was the most popular way to legally obtain alcohol during prohibition?", answer:3, res1:"Communion",res2:"Home Brewing",res3:"Medicinal Alcohol",res4:"Bootlegging",exp:sources[6]}, //7
+
+					{question:"What was the most popular smuggling route from Canada to the USA?", answer:1, res1:"The Detroit-Windsor Funnel", res2:"Appalachian Trail", res3:"Niagara Route", res4:"St Lawrence Crossing", exp:sources[5]}, //6
+
+					{question:"Bugs Moran was the arch-enemy of what infamous Chicago smuggler and gangster?", answer:1, res1:"Al Capone",res2:"Owney Madden",res3:"Tom Dragna",res4:"Bill Lovett",exp:sources[10]}, //11
+					{question:"Chicago had how many bars selling drinks illegally in 1921?", answer:1, res1:"4000",res2:"500",res3:"8000",res4:"1000",exp:sources[11]}, //12
+					{question:"The climax of crime during prohibition is said to be what event?", answer:2, res1:"Black Sunday",res2:"St Valentine's Day Massacre",res3:"Black Tuesday",res4:"St. Bartholomew's Day",exp:sources[14]}, //15
+					{question:"The Anti-(Answer) League was one of the driving forces behind the starting of prohibition", answer:1, res1:"Saloon",res2:"Drinking",res3:"Liquid",res4:"Wet",exp:sources[7]}, //8
+					{question:"Which modern racing organization draws its roots from moonshiners and smugglers?", answer:1, res1:"NASCAR",res2:"The Stronach Group",res3:"AAA",res4:"NATA",exp:sources[9]}, //10
+
+					/**/{question:"True or False: Prohibition actually increased the amount Americans consumed alcohol", answer:2, res1:"True",res2:"False",res3:"False",res4:"False",exp:sources[15]}, //16
+					{question:"Which president put an end to the prohibition era?", answer:2, res1:"Herbert Hoover",res2:"Franklin D. Roosevelt",res3:"Theodore Roosevelt",res4:"Woodrow Wilson",exp:sources[3]}, //4
+					{question:"What 1933 law allowed the sale of beverages with less than 4% alcohol level?", answer:1, res1:"The Cullen-Harrison Act",res2:"Clayton Act",res3:" Glass–Steagall Act",res4:"New Deal",exp:sources[16]}, //17
+					{question:"The biggest factor contributing to the repeal of prohibition was?", answer:3, res1:"New Deal",res2:"Dust Bowl",res3:"The Great Depression",res4:"World War II",exp:sources[17]}, //18
+					/**/{question:"True or False: You could legally still consume alcohol during prohibition.", answer:1, res1:"True",res2:"False",res3:"False",res4:"False",exp:sources[18]} //19
+
+				];
+
+				//Sample question object: {question:"", answer:"" res1:"", res2:"", res3:"", res4:"", exp:""}
+				displayTriviaSelection();
+
+			}
+
+			function selectQuestion(col, row){
+
+				let index = (col*5) + row;
+
+				activeGame.activeQuestion = index;
+				displayTriviaQuestion();
+				console.log(`q${index}`);
+
+			}
+
+			function selectAnswer(ans) {
+
+				//They are correct
+				if(activeGame.questions[activeGame.activeQuestion].answer == ans){
+
+					activeGame.selectedQuestions[activeGame.activeQuestion] = 1;
+					activeGame.score += ((activeGame.activeQuestion % 5)+1) * 200;
+
+				//If they are wrong
+				} else {
+
+					activeGame.selectedQuestions[activeGame.activeQuestion] = -1;
+					activeGame.score -= ((activeGame.activeQuestion % 5)+1) * 200;
+
+				}
+
+				displayTriviaQuestion();
+
+				let x = 0;
+
+				for(x=1; x<5; x++){
+
+					document.getElementById(`opt${x}`).onclick = "";
+
+					//The correct answer
+					if(x == activeGame.questions[activeGame.activeQuestion].answer){
+						document.getElementById(`opt${x}`).style = "background-color:green; color:purple;";
+
+					//The wrong answeres
+					}else{
+						document.getElementById(`opt${x}`).style = "background-color:red; color:green;";
+					}
+
+				}
+
+				//Add the explination and the next button
+				let nextButton = "<div onclick='displayEndScreen()'> Finished </div>";
+
+				for (x = 0; x < 25; x++){
+
+					if(activeGame.selectedQuestions[x] == 0){
+						nextButton = "<div onclick='displayTriviaSelection()'> Continue </div>";
+						break;
+					}
+
+				}
+
+				document.getElementById("AnswerSection").innerHTML = `<div> ${activeGame.questions[activeGame.activeQuestion].exp} </div> <br> ${nextButton}`
+				activeGame.activeQuestion = -1;
+
+			}
+
+
+			function displayStartScreen(){
+
+				document.getElementById("main").innerHTML = `<!-- Start Screen -->
+				<div class="startScreen" id="startScreen">
+
+
+					<div style="grid-column: 2 / 5; grid-row: 2; text-align: center;">
+						HIST 3812 Trivia Game	&#58; Prohibition Edition
+					</div>
+
+						<div style="grid-column: 4; grid-row: 3; background-color:silver; border-style: solid; border-width: thin; height: 70%; width:70%; text-align: center; margin:auto;" onclick='displayLeaderBoard()'> Scores </div>
+						<div style="grid-column: 3; grid-row: 3; background-color:silver; border-style: solid; border-width: thin; height: 70%; width:70%; text-align: center; margin:auto;" onclick="displaySources()"> Sources </div>
+						<div style="grid-column: 2; grid-row: 3; background-color:lime; border-style: solid; border-width: thin; height: 70%; width:70%; text-align: center; margin:auto;" onclick="startGame()"> Start </div>
+
+					<div style="text-align:left; grid-column: 2 / 5; grid-row: 4;">
+						<input type="text" style="display:inline-block; border-style: solid; border-width: thick; width:100%; height:42px; font-size:24px;" id="nameForm" placeholder="Name" value='${activeGame.name}' maxlength="64" />
+					</div>
+
+				</div>`
+
+			}
+
+			function displayTriviaSelection(){
+
+				document.getElementById("main").innerHTML = `<!-- Main Area  -->
+				<div class="trivalSelection" id="trivalSelection">
+
+					<!-- -->
+					<div style="grid-column: 2; grid-row: 2;">
+
+						<div style="display:inline-block; text-align: center;"> ${activeGame.title} </div>
+
+					</div>
+
+					<!-- -->
+					<table style="grid-column: 2; grid-row: 3;">
+
+						<!-- The Titles of the caterogies -->
+						<tr>
+							<th class="headersC" id="questionheader0"> ${activeGame.caterogies[0] || 'Category 1'} </th>
+							<th class="headersC" id="questionheader1"> ${activeGame.caterogies[1] || 'Category 2'} </th>
+							<th class="headersC" id="questionheader2"> ${activeGame.caterogies[2] ||'Category 3'} </th>
+							<th class="headersC" id="questionheader3"> ${activeGame.caterogies[3] ||'Category 4'} </th>
+							<!-- <th class="headersC" id="questionheader4"> ${activeGame.caterogies[4] ||'Category 5'} </th>  -->
+						</tr>
+
+
+						<!-- Easy Questions -->
+						<tr>
+							<td id="q0" class="unselectedButton" onclick="selectQuestion(0,0)"> 200 </button> </td>
+							<td id="q5" class="unselectedButton" onclick="selectQuestion(1,0)"> 200 </button> </td>
+							<td id="q10" class="unselectedButton" onclick="selectQuestion(2,0)"> 200 </button> </td>
+							<td id="q15" class="unselectedButton" onclick="selectQuestion(3,0)"> 200 </button> </td>
+							<!-- <td id="q20" class="unselectedButton" onclick="selectQuestion(4,0)"> 200 </button> </td>  -->
+						</tr>
+
+
+						<!-- -->
+						<tr>
+							<td id="q1" class="unselectedButton" onclick="selectQuestion(0,1)"> 400 </td>
+							<td id="q6" class="unselectedButton" onclick="selectQuestion(1,1)"> 400 </button> </td>
+							<td id="q11" class="unselectedButton" onclick="selectQuestion(2,1)"> 400 </button> </td>
+							<td id="q16" class="unselectedButton" onclick="selectQuestion(3,1)"> 400 </button> </td>
+							<!-- <td id="q21" class="unselectedButton" onclick="selectQuestion(4,1)"> 400 </button> </td>  -->
+						</tr>
+
+
+						<!-- -->
+						<tr>
+							<td id="q2" class="unselectedButton" onclick="selectQuestion(0,2)"> 600 </button> </td>
+							<td id="q7" class="unselectedButton" onclick="selectQuestion(1,2)"> 600 </button> </td>
+							<td id="q12" class="unselectedButton" onclick="selectQuestion(2,2)"> 600 </button> </td>
+							<td id="q17" class="unselectedButton" onclick="selectQuestion(3,2)"> 600 </button> </td>
+							<!-- <td id="q22" class="unselectedButton" onclick="selectQuestion(4,2)"> 600 </button> </td>  -->
+						</tr>
+
+
+						<!-- -->
+						<tr>
+							<td id="q3" class="unselectedButton" onclick="selectQuestion(0,3)"> 800 </button> </td>
+							<td id="q8" class="unselectedButton" onclick="selectQuestion(1,3)"> 800 </button> </td>
+							<td id="q13" class="unselectedButton" onclick="selectQuestion(2,3)"> 800 </button> </td>
+							<td id="q18" class="unselectedButton" onclick="selectQuestion(3,3)"> 800 </button> </td>
+							<!-- <td id="q23" class="unselectedButton" onclick="selectQuestion(4,3)"> 800 </button> </td>  -->
+						</tr>
+
+
+						<!-- Hardest Questions -->
+						<tr>
+							<td id="q4"   class="unselectedButton" onclick="selectQuestion(0,4)"> 1000 </button> </td>
+							<td id="q9"   class="unselectedButton" onclick="selectQuestion(1,4)"> 1000 </button> </td>
+							<td id="q14"  class="unselectedButton" onclick="selectQuestion(2,4)"> 1000 </button> </td>
+							<td id="q19"  class="unselectedButton" onclick="selectQuestion(3,4)"> 1000 </button> </td>
+							<!-- <td id="q24" class="unselectedButton" onclick="selectQuestion(4,4)"> 1000 </button> </td>   -->
+						</tr>
+
+
+					</table>
+
+					<!-- -->
+					<div id="GameStatus" style="grid-column: 2; grid-row: 4; padding-top:20px; font-size:24px; width: 100%;">
+							<div style="display:inline-block; text-align: left;"> Player: ${activeGame.name || 'You'} </div>
+							<div style="display:inline-block; text-align: right;" id="Score"> Score:  ${activeGame.score}</div>
+					</div>
+
+				</div>`;
+
+				let x = 0;
+				for (x = 0; x<20; x++){
+
+					//Not selected, can skip
+					if(activeGame.selectedQuestions[x] == 0){
+						continue;
+					}
+
+					//Was correctly selected
+					if(activeGame.selectedQuestions[x] == 1){
+						document.getElementById(`q${x}`).style = "background-color:green; color:purple;";
+					}
+
+					//Was incorrectly selected
+					if(activeGame.selectedQuestions[x] == -1){
+						document.getElementById(`q${x}`).style = "background-color:red; color:green;";
+					}
+
+					document.getElementById(`q${x}`).onclick = "";
+
+				}
+
+			}
+
+			function displayTriviaQuestion(){
+
+
+				document.getElementById('main').innerHTML = `<!-- Triva Questions  -->
+					<div class="triviaScreen" id="triviaScreen">
+						<div id="gameQuestion" style="grid-row:2; grid-column:2;"> ${activeGame.questions[activeGame.activeQuestion].question} </div>
+
+						<table id="answerButtons" style="grid-row:3; grid-column:2;">
+
+							<tr>
+								<td onclick="selectAnswer(1)" id="opt1"> ${activeGame.questions[activeGame.activeQuestion].res1} </td>
+								<td onclick="selectAnswer(2)" id="opt2"> ${activeGame.questions[activeGame.activeQuestion].res2} </td>
+							</tr>
+
+							<tr>
+								<td onclick="selectAnswer(3)" id="opt3"> ${activeGame.questions[activeGame.activeQuestion].res3} </td>
+								<td onclick="selectAnswer(4)" id="opt4"> ${activeGame.questions[activeGame.activeQuestion].res4} </td>
+							</tr>
+
+						</table>
+
+						<div id="AnswerSection" style="grid-row:4; grid-column:2;"> </div>
+
+
+						<div id="GameStatus" style="grid-column: 2; grid-row: 5; padding-top:20px; font-size:24px; width: 100%;">
+							<div style="display:inline-block; text-align: left;"> Player: ${activeGame.name || '${Your Name Here}'} </div>
+							<div style="display:inline-block; text-align: right;" id="Score"> Score:  ${activeGame.score}</div>
+						</div>
+					</div>`
+
+			}
+
+			function displayEndScreen(){
+
+				document.getElementById('main').innerHTML = `<div class="endScreen">
+				<div style="grid-column:2; grid-row: 2;"> Game completed </div>
+
+				<table style="grid-column:2; grid-row: 3; font-size: 16px;" id="highscoreTable" style=>
+
+					<tr> <th class="headersA"> Name </th> <th class="headersA"> Score </th> </tr>
+
+				</table>
+
+				<div style="grid-column:2; grid-row: 4;" onclick="displayStartScreen();" >
+					<div style="margin:15px; margin:15px; background-color:#00EE00; border-style: solid; border-width: thin; color: black; width:15%; height:55%; font-size:16px; text-align: center;" > Main Menu </div>
+				</div>
+
+				</div>`;
+
+				let scoreData = [{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},
+				{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0}];
+
+				if(typeof(window.localStorage) !== 'undefined'){
+
+					if(window.localStorage.getItem('scores') != null){
+						scoreData = JSON.parse(window.localStorage.getItem('scores'));
+					}
+
+				}
+
+				let x = 0;
+				let hasPlayerBeenNotInserted = true;
+
+				let playerString = `<tr> <td> &bigstar; ${activeGame.name || '${Your Name Here}'} </td> <td> ${activeGame.score} </td> </tr>`
+
+				for(x = 0; x < 10; x++){
+
+					if(activeGame.score >= scoreData[x].score && hasPlayerBeenNotInserted){
+						document.getElementById("highscoreTable").innerHTML += playerString;
+						hasPlayerBeenNotInserted = false;
+					}
+
+					let oldScore = `<tr> <td>  ${scoreData[x].name} </td> <td> ${scoreData[x].score} </td> </tr>`
+					document.getElementById("highscoreTable").innerHTML += oldScore;
+
+				}
+
+				if(hasPlayerBeenNotInserted){
+
+					document.getElementById("highscoreTable").innerHTML +=playerString;
+
+				}
+
+				//update the score
+				if(typeof(window.localStorage) !== 'undefined' && activeGame.name != ""){
+
+					scoreData.push({name:activeGame.name,score:activeGame.score})
+					scoreData.sort(((a,b)=>{return (b.score - a.score)}));
+					scoreData.pop();
+					window.localStorage.setItem('scores',JSON.stringify(scoreData));
+
+				};
+
+
+			}
+
+			function displayLeaderBoard(){
+
+				document.getElementById('main').innerHTML = `<div style="padding:5%;">
+
+				<table id='highscoreTable2'>
+
+					<tr> <th> Name </th> <th> Score </th> </tr>
+
+				</table>
+
+				<div style='height:100px; width:200px; padding-top:5px;' onclick="displayStartScreen();"> Main Menu </div>
+
+				</div>`;
+
+				let scoreData = [{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},
+				{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0},{name:null,score:0}];
+
+				if(typeof(window.localStorage) !== 'undefined'){
+
+					if(window.localStorage.getItem('scores') != null){
+						scoreData = JSON.parse(window.localStorage.getItem('scores'));
+					}
+
+				}
+
+				let x = 0;
+				for(x = 0; x < 10; x++){
+
+					let oldScore = `<tr> <td>  ${scoreData[x].name} </td> <td> ${scoreData[x].score} </td> </tr>`
+					document.getElementById("highscoreTable2").innerHTML += oldScore;
+
+				}
+
+			}
+
+			function displaySources(){
+
+
+				document.getElementById("main").innerHTML = `<div class='CitationSection'>
+
+					<div style="grid-column: 2; grid-row:2;"> Sources Used </div>
+
+					<div style="font-size:8px; overflow:auto; grid-column: 2; grid-row:3;">
+
+						<p>
+						The Editors of Encyclopaedia Britannica. Volstead Act. Last updated November 21st, 2019. Britannica.com
+						<a href="https://www.britannica.com/topic/Volstead-Act"> https://www.britannica.com/topic/Volstead-Act</a>
+						</p>
+
+						<p>
+						History.com editors. Prohibition. October 29th, 2009. Last updated November 6th, 2019. History.com
+						<a href="https://www.history.com/topics/roaring-twenties/prohibition"> https://www.history.com/topics/roaring-twenties/prohibition </a>
+						</p>
+
+						<p>
+						The Editors of Encyclopaedia Britannica. Repeal. Last updated November 20th, 2019. Britannica.com
+						<a href=" https://www.britannica.com/topic/Volstead-A"> https://www.britannica.com/topic/Volstead-A</a>
+						</p>
+
+						<p>
+						Editors of Washington State University Digital Exhibits. The Unintended Consequences of Prohibition.Washington State University.com.
+						<a href="http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition"> http://digitalexhibits.wsulibs.wsu.edu/exhibits/show/prohibition-in-the-u-s/bootlegging-during-prohibition></a>
+						</p>
+
+						<p>
+						Editors of cdigs.uwindsor.ca. Detroit-Windsor Funnel. Cdigs.uwindsor.ca.
+						<a href=" http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel"> http://cdigs.uwindsor.ca/neighborhood-history/exhibits/show/riverside/abars/detroit-windsor-funnel</a>
+						</p>
+
+						<p>
+						Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+						<a href=" https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol"> https://prohibition.osu.edu/american-prohibition-1920/medicinal-alcohol </a>
+						</p>
+
+						<p>
+						Editors of Ohio State University.com. Medicinal Alcohol. Ohio State University.com
+						<a href=" https://prohibition.osu.edu/anti-saloon-league"> https://prohibition.osu.edu/anti-saloon-league </a>
+						</p>
+
+						<p>
+						Weadock, Tim. Moonshine Cars. December 10th, 2013. Historic Vehicle Association.com.
+						<a href=" https://www.historicvehicle.org/moonshine-cars/"> https://www.historicvehicle.org/moonshine-cars/ </a>
+						</p>
+
+						<p>
+						History.com editors. The St. Valentine’s Day Massacre. November 13th, 2009. Last updated July 27th, 2019. History.com.
+						<a href=" https://www.history.com/this-day-in-history/the-st-valentines-day-massacre"> https://www.history.com/this-day-in-history/the-st-valentines-day-massacre </a>
+						</p>
+
+						<p>
+						Bellamy, J. Matthew. The Challenge of Prohibition. Labattheritage.com.
+						<a href="https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition"> https://labattheritage.lib.uwo.ca/closer-look/the-challenge-of-prohibition </a>
+						</p>
+
+						<p>
+						Editors of Whitehouse.gov.com. Woodrow Wilson. Whitehouse.gov.com.
+						<a href="https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/"> https://www.whitehouse.gov/about-the-white-house/presidents/woodrow-wilson/ </a>
+						</p>
+
+						<p>
+						History.com Editors. Saint Valentine’s Day Massacre. November 9th, 2009. Last updated November 2nd, 2018. History.com.
+						<a href="https://www.history.com/topics/crime/saint-valentines-day-massacre"> https://www.history.com/topics/crime/saint-valentines-day-massacre </a>
+						</p>
+
+						<p>
+						Sandbrook, Dominic. How Prohibition backfired and gave American an era of gangsters and speakeasies. August 26th, 2012. The Guardian.com.
+						<a href="https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies"> https://www.theguardian.com/film/2012/aug/26/lawless-prohibition-gangsters-speakeasies </a>
+						</p>
+
+						<p>
+						Miller, Rupert. On This Day 1933… Beer Goes Back on Sale in US. April 7th, 2017. The Drinks Business.com.
+						<a href="https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/"> https://www.thedrinksbusiness.com/2017/04/on-this-day-1933beer-goes-back-on-sale-in-us/</a>
+						</p>
+
+						<p>
+						Catcher, Jess. 12 Surprising And Sneaky Facts About Prohibition. Little things.com
+						<a href="https://www.littlethings.com/prohibition-facts"> https://www.littlethings.com/prohibition-facts </a>
+						</p>
+
+						<p>
+						Hallowell, Gerald. Prohibition in Canada. August 12th, 2013. Last updated March 4th, 2015. The canadian encyclopedia.com.
+						<a href="https://www.thecanadianencyclopedia.ca/en/article/prohibition"> https://www.thecanadianencyclopedia.ca/en/article/prohibition </a>
+						</p>
+
+					</div>
+
+					<div style="grid-column: 2; grid-row:4;" onclick="displayStartScreen();"> Main Menu </div>
+
+				<div>`;
+
+			}
+
+		</script>
+
+	</body>
+</html>
