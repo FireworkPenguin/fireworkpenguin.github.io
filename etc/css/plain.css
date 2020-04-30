@@ -67,7 +67,7 @@ body {
 	padding: 2px;
 	margin: 2px;
 
-	 background-image: url("./etc/images/backgrounds/papertexture.png"); background-color: orange; border-color: darkOrange;
+	 background-image: url("/etc/images/backgrounds/papertexture.png"); background-color: orange; border-color: darkOrange;
 
 }
 
