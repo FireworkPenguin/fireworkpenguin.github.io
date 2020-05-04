@@ -1,38 +1,15 @@
 body{
-
 	color: black;
 	background-image: linear-gradient(#80a8ff, #ccdcff);
 
 }
 
-.main {
-
+.sidebarButton{
+	background-color: lightgreen;
+	border-color: darkgreen;
+	color:darkgreen;
 }
 
-.skycolour{
-
-}
-
-.sidebarButton1{
-	 background-color: lightblue;
-	 border-color: darkBlue;
-	 color:black;
-}
-
-.sidebarButton2{
-	 background-color: lightblue;
-	 border-color: darkBlue;
-	 color:black;
-}
-
-.sidebarButton3{
-	 background-color: lightblue;
-	 border-color: darkBlue;
-	 color:black;
-}
-
-.sidebarButton4{
-	 background-color: lightblue;
-	 border-color: darkBlue;
-	 color:black;
+.sidebarButton a {
+	color:black;
 }

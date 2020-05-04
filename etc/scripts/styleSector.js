@@ -12,12 +12,12 @@
 
 //varriables
 let StyleObjectId = 'styleizedWebpage'
-let defaultStyle = 0;
-let StylesArray = ['./etc/css/plain.css','./etc/css/day.css','./etc/css/night.css'];
-let StylesIconArray = ['1F4D6;', '2600;', '1F315;']
-let lockSymbol = '1F512'
-
-//1F512
+let defaultStyle = -1;
+let StylesArray = [
+  {iconname:"plain", iconActive:"1F512", iconDeactive:"1F4D6", associatedStyleSheet:"./etc/css/plain.css"},
+  {iconname:"day", iconActive:"1F512", iconDeactive:"2600", associatedStyleSheet:"./etc/css/day.css"},
+  {iconname:"night", iconActive:"1F512", iconDeactive:"1F315", associatedStyleSheet:"./etc/css/night.css"}
+]
 
 //Script to run on load
 startupStyleSelection();
@@ -54,7 +54,7 @@ function iconLockOnLoad(){
 
   let index = localStorage.getItem('StyleLock');
   if(index != -1){
-    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${lockSymbol}`;
+    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesArray[index].iconActive}`;
   }
 
 }
@@ -70,7 +70,7 @@ function switchStyle(index){
     console.log(index)
 
     if(index != 0){
-      document.getElementById(StyleObjectId).innerHTML = `<link href="${StylesArray[index]}" rel="stylesheet" type="text/css">`
+      document.getElementById(StyleObjectId).innerHTML = `<link href="${StylesArray[index].associatedStyleSheet}" rel="stylesheet" type="text/css">`
     } else {
       document.getElementById(StyleObjectId).innerHTML = ``
     }
@@ -85,18 +85,19 @@ function lockStyle(index){
 
   if(window.localStorage.getItem("StyleLock") == index){
     unlockStyle();
-    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesIconArray[index]}`;
+    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesArray[index].iconDeactive}`;
+    switchStyle(contextStyleSelection());
 
   } else {
 
     let oldIndex = window.localStorage.getItem('StyleLock');
 
     if(oldIndex != -1){
-      document.getElementById(`StyleButton${oldIndex}`).innerHTML = `&#x${StylesIconArray[oldIndex]}`;
+      document.getElementById(`StyleButton${oldIndex}`).innerHTML = `&#x${StylesArray[oldIndex].iconDeactive}`;
     }
 
     window.localStorage.setItem('StyleLock', index);
-    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${lockSymbol}`;
+    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesArray[index].iconActive}`;
 
     switchStyle(index);
   }
@@ -112,7 +113,7 @@ function contextStyleSelection(){
   let date = new Date();
   let time = date.getHours()
 
-  console.log(time);
+
 
   if (time >= 7 && time < 19) {
     return 1

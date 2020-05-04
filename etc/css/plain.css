@@ -10,20 +10,20 @@ body {
 	margin: 0%;
 
 	display: grid;
-	grid-template-columns: 200px auto;
-	grid-template-rows: 100px auto;
-
-	bottom:0px;
+	grid-template-columns: 15% auto 50px;
+	grid-template-rows: 100px auto auto 100px;
 
 }
 
 .sidebar {
 
-	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+
+	padding-left: 25px;
+	padding-right: 25px;
 
 	color: black;
-	padding: 5px;
-	min-height: 100%;
 	grid-column: 1;
 	grid-row: 2;
 
@@ -31,14 +31,17 @@ body {
 
 .sidebarButton{
 
+	display: inline-flex;
+
 	border-style: solid;
 	border-width: 2px;
-	min-height: 40px;
+	height: 30px;
+
 
 	text-align: center;
 	font-size: 24px;
-	padding: 2px;
-	margin: 2px;
+	padding: 10px;
+	margin: 5px;
 
 	background-color: orange; border-color: darkOrange;
 
@@ -60,19 +63,18 @@ body {
 
 	border-style: solid;
 	border-width: 2px;
-	height:50px;
+
+	margin: 5px;
 
 	text-align: center;
-	font-size: 32px;
-	padding: 2px;
-	margin: 2px;
+	font-size: 24px;
 
 	 background-image: url("/etc/images/backgrounds/papertexture.png"); background-color: orange; border-color: darkOrange;
 
 }
 
 .webpageTitle{
-	padding-left: 5%;
+	padding-left: 42px;
 	font-size: 32px;
 	display: inline-grid;
 	grid-column: 2;
@@ -84,33 +86,32 @@ body {
 
 	grid-column: 2;
 
-	display: grid;
-	grid-template-rows: 0px auto 100px;
-	grid-template-columns: auto 90% auto;
-
-}
-
-.articleSection{
-
-	grid-column: 2;
-	grid-row: 2;
-
-}
-
-.section{
+	padding-left: 42px;
+	display: inline-block;
 
 	background-color: white;
-	min-height: 200px;
+	min-height: 480px;
 	padding: 10px;
 	border-style: solid;
 	border-color: black;
-	border-width: 5px;
+	border-width: 1px;
+
+}
+
+table, th, td {
+
+  border: 1px solid black;
+  border-collapse: collapse;
+
+	min-height: 80px;
+	min-width: 16px;
 
 }
 
 .feet{
 
-	grid-row: 3;
+	padding-top: 50px;
+	grid-row: 4;
 	grid-column: 1 / span 3;
 	text-align: center;
 
