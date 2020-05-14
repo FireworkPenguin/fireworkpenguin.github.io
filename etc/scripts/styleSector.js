@@ -28,19 +28,18 @@ function startupStyleSelection(){
   if(typeof(window.localStorage) !== "undefined"){
 
     // If this value does exist use it, otherwise create it
-    if(window.localStorage.getItem("StyleLock") != null){
+    if(window.localStorage.getItem("StyleLock") == null){
+      window.localStorage.setItem('StyleLock', defaultStyle);
 
-      if(window.localStorage.getItem("StyleLock") < 0){
-        switchStyle(contextStyleSelection());
+    }
 
-      } else {
-        switchStyle(window.localStorage.getItem("StyleLock"));
-      }
+    if(window.localStorage.getItem("StyleLock") < 0){
+      switchStyle(contextStyleSelection());
 
     } else {
-      //Inintialize value to be the defaultStyle;
-      window.localStorage.setItem('StyleLock', defaultStyle);
+        switchStyle(window.localStorage.getItem("StyleLock"));
     }
+
   }
 }
 
