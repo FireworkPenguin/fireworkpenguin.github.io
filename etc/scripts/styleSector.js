@@ -14,9 +14,9 @@
 let StyleObjectId = 'styleizedWebpage'
 let defaultStyle = -1;
 let StylesArray = [
-  {iconname:"plain", iconActive:"1F512", iconDeactive:"1F4D6", associatedStyleSheet:"./etc/css/plain.css"},
-  {iconname:"day", iconActive:"1F512", iconDeactive:"2600", associatedStyleSheet:"./etc/css/day.css"},
-  {iconname:"night", iconActive:"1F512", iconDeactive:"1F315", associatedStyleSheet:"./etc/css/night.css"}
+  {iconname:"plain", iconActive:"1F512", iconDeactive:"1F4D6", associatedStyleSheet:"/etc/css/plain.css"},
+  {iconname:"day", iconActive:"1F512", iconDeactive:"2600", associatedStyleSheet:"/etc/css/day.css"},
+  {iconname:"night", iconActive:"1F512", iconDeactive:"1F315", associatedStyleSheet:"/etc/css/night.css"}
 ]
 
 //Script to run on load
