@@ -1,0 +1,54 @@
+body {
+
+}
+
+.container{
+
+}
+
+.ScoreBoardLines{
+  stroke-width:2;
+  stroke:rgb(0,0,0);
+
+}
+
+.ScoreBoardNumbering{
+  fill:#000000;
+  font-size:24px;
+  font-family:Verdana;
+}
+
+.ScoreBoardScore{
+  fill:#000000;
+  font-size:24px;
+  font-family:Verdana;
+}
+
+.pinSelected{
+
+  stroke:green;
+  stroke-width:1px;
+  fill:red;
+}
+
+.pinUnselected{
+
+  stroke:green;
+  stroke-width:1px;
+  fill:yellow;
+}
+
+.pinSelectionIcon{
+  stroke:green;
+  stroke-width:1px;
+  fill:white;
+}
+
+.turnIndicator{
+
+
+}
+
+.skipIndicator{
+
+}
