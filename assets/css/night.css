@@ -4,9 +4,15 @@ body {
 
 }
 
-.feet{
+.feet_dec{
 
-	color: white;
+	color: blue;
+
+}
+
+.feet_dec a{
+
+	color: black;
 
 }
 
