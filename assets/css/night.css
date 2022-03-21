@@ -1,18 +1,35 @@
-body {
+html {
 	background-image: linear-gradient(#00081a, #002066);
-	background-repeat: no-repeat;
+
+}
+
+.sidebarButton{
+
+	background-color: orange; 
+	border-color: darkOrange;
+	color: indigo;
+
+}
+
+.sidebarButton a {
+
+	color: indigo;
 
 }
 
 .feet_dec{
 
-	color: blue;
+	color: indigo;
+	background-color: orange; 
+	border-color: darkOrange;
 
 }
 
 .feet_dec a{
 
-	color: black;
+	color: blue;
+	text-decoration: underline;
+
 
 }
 

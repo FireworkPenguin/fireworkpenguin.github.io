@@ -1,12 +1,13 @@
-body{
+html{
 	color: black;
 	background-image: linear-gradient(#80a8ff, #ccdcff);
 
 }
 
 .sidebarButton{
+	
 	background-color: lightgreen;
-	border-color: darkgreen;
+	border: darkgreen solid 2px;
 	color:darkgreen;
 }
 
@@ -17,16 +18,15 @@ body{
 .webpageTitle{
 
 	background-color: lightgreen;
-	border-color: darkgreen;
+	border: darkgreen solid 2px;
 	color:Blue;
 
 }
 
 .feet_dec{
 
-	width: 100%;
-
 	background-color: lightgreen;
-	border-color: darkgreen;
+	border: darkgreen solid 2px;
 	color:black;
+
 }
