@@ -23,7 +23,7 @@ body {
 	column-gap: 1vw;
 	row-gap: 5px;
 
-	grid-template-columns: 15vw 80vw;
+	grid-template-columns: 10vw 85vw;
 	grid-template-rows: auto auto;
 
 }
@@ -86,8 +86,8 @@ table, th, td {
 
 .project_selection_item{
 
-	height: 150px; 
-	width: 375px;
+	min-height: 150px; 
+	width: 445px;
 	
 	display: inline-flex; 
 	
@@ -165,6 +165,12 @@ table, th, td {
 		grid-column: 1;
 		grid-row: 2;
 
+
+	}
+
+	.project_selection_item{
+
+		min-width: 65%
 
 	}
 

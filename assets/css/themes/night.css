@@ -3,7 +3,7 @@ html {
 
 }
 
-.sidebarButton{
+.sidebarElement{
 
 	background-color: orange; 
 	border-color: darkOrange;
@@ -12,6 +12,12 @@ html {
 }
 
 .sidebarButton a {
+
+	color: indigo;
+
+}
+
+.webpageTitle a{
 
 	color: indigo;
 
@@ -30,11 +36,5 @@ html {
 	color: blue;
 	text-decoration: underline;
 
-
-}
-
-.webpageTitle{
-
-	color: black;
 
 }
