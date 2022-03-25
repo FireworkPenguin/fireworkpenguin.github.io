@@ -1,0 +1,152 @@
+
+/* Sidebar Elements */
+
+.sidebar {
+
+	display: flex;
+	flex-direction: column;
+
+	row-gap: 5px;
+
+	color: black;
+	grid-column: 1;
+	grid-row: 1;
+
+}
+
+.sidebarElement{
+
+	display: inline-flex;
+	font-size: larger;
+	text-align: left;
+	
+	padding: 10px;
+	height: 30px;
+	
+	background-color: white;
+	border: solid 2px black;
+
+	text-decoration: none;
+
+}
+
+.sidebarButton{
+
+	display: inline-flex;
+	font-size: 16px;
+
+}
+
+.sidebarButton a {
+
+	text-decoration: none;
+	color: black;
+
+}
+
+.webpageTitle{
+
+	font-size: medium;
+	background-color: white;
+
+	width:auto; height: 75px;
+	border-style: solid;
+	border-color: black;
+
+}
+
+.webpageTitle a{
+
+	text-decoration: none;
+	color: black;
+
+}
+
+
+/* Theme Selection buttons */
+
+.sidebarStyleSelect{
+
+	display:flex;
+
+	width: 100%;
+
+	flex-wrap: wrap;
+	justify-content:space-around;
+	align-content: space-around;
+
+	border-style: solid;
+	border-width: 2px;
+	
+	background-image: url("/assets/images/backgrounds/papertexture.png"); background-color: orange; border-color: darkOrange;
+
+}
+
+.styleSelectionMenuTitle{
+
+	width: 99%; 
+	text-align:center;
+	margin-bottom: 5px;
+
+}
+
+.styleSelectItem{
+
+	text-align: center;
+	height: 30px;
+
+}
+
+.styleSelectTitle{
+
+	margin-top: 5px;
+	margin-left: 5px;
+	text-align: left;
+
+	width: calc(74%);
+	font-size: medium;
+
+}
+
+.styleSelectImage{
+
+	width: calc(25% - 10px);
+	font-size:x-large;
+	
+}
+
+/* Reactive css properties */
+
+@media only screen and (max-width: 768px) {
+
+	.sidebar{
+
+		grid-column: 1;
+		grid-row: 1;
+
+	}
+
+	.webpageTitle{
+
+		display: inline-block;
+		width: max-width;
+		
+		font-size: xx-large;
+		text-align: center;
+
+
+	}
+
+	.sidebarButton{
+
+		display: none;
+
+	}
+
+	.sidebarStyleSelect{
+
+		display: none;
+
+	}
+	
+}

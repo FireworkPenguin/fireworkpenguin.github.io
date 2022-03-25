@@ -14,9 +14,9 @@
 let StyleObjectId = 'styleizedWebpage'
 let defaultStyle = contextStyleSelection();
 let StylesArray = [
-  {iconname:"plain", iconActive:"1F512", iconDeactive:"23F0", associatedStyleSheet:"/assets/css/plain.css"},
-  {iconname:"day",   iconActive:"1F33B", iconDeactive:"1F331", associatedStyleSheet:"/assets/css/day.css"},
-  {iconname:"night", iconActive:"1F315", iconDeactive:"1F311", associatedStyleSheet:"/assets/css/night.css"}
+  {iconname:"plain", iconActive:"1F512", iconDeactive:"23F0", associatedStyleSheet:"/assets/css/themes/plain.css"},
+  {iconname:"day",   iconActive:"1F33B", iconDeactive:"1F331", associatedStyleSheet:"/assets/css/themes/day.css"},
+  {iconname:"night", iconActive:"1F315", iconDeactive:"1F311", associatedStyleSheet:"/assets/css/themes/night.css"}
 ]
 let currentStyle = 0;
 
