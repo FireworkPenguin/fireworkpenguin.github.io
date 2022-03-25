@@ -12,15 +12,15 @@
 
 //varriables
 let StyleObjectId = 'styleizedWebpage'
-let defaultStyle = -1;
+let defaultStyle = 1;
 let StylesArray = [
-  {iconname:"plain", iconActive:"1F512", iconDeactive:"1F4D6", associatedStyleSheet:"/assets/css/plain.css"},
-  {iconname:"day", iconActive:"1F512", iconDeactive:"2600", associatedStyleSheet:"/assets/css/day.css"},
-  {iconname:"night", iconActive:"1F512", iconDeactive:"1F315", associatedStyleSheet:"/assets/css/night.css"}
+  {iconname:"plain", iconActive:"1F512", iconDeactive:"23F0", associatedStyleSheet:"/assets/css/plain.css"},
+  {iconname:"day",   iconActive:"1F33B", iconDeactive:"1F331", associatedStyleSheet:"/assets/css/day.css"},
+  {iconname:"night", iconActive:"1F315", iconDeactive:"1F311", associatedStyleSheet:"/assets/css/night.css"}
 ]
+let currentStyle = 0;
 
 //Script to run on load
-startupStyleSelection();
 
 function startupStyleSelection(){
 
@@ -28,32 +28,37 @@ function startupStyleSelection(){
   if(typeof(window.localStorage) !== "undefined"){
 
     // If this value does exist use it, otherwise create it
-    if(window.localStorage.getItem("StyleLock") == null){
-      window.localStorage.setItem('StyleLock', defaultStyle);
-
+    if(currentStyle == null){
+      window.localStorage.setItem('StyleLock', -1);
+    } else {
+      currentStyle = window.localStorage.getItem("StyleLock");
     }
 
-    if(window.localStorage.getItem("StyleLock") < 0){
-      switchStyle(contextStyleSelection());
+    if(currentStyle == -1){
+
+      currentStyle = contextStyleSelection();
+      switchStyle(currentStyle);
 
     } else {
-        switchStyle(window.localStorage.getItem("StyleLock"));
+      switchStyle(defaultStyle);
     }
+
+  } else {
+    switchStyle(defaultStyle);
 
   }
 }
 
 window.onload = function(){
-
+  startupStyleSelection();
   iconLockOnLoad();
-
 }
 
 function iconLockOnLoad(){
 
-  let index = localStorage.getItem('StyleLock');
-  if(index != -1){
-    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesArray[index].iconActive}`;
+  let styleNum = localStorage.getItem('StyleLock');
+  if(styleNum != -1){
+    document.getElementById(`StyleButton0`).innerHTML = `&#x${StylesArray[0].iconActive}`;
   }
 
 }
@@ -62,17 +67,34 @@ function switchStyle(index){
 
   try {
 
-    if ((StylesArray.length - 1) < index || index < 0){
-      index = 0;
-    }
+    //If locked ignore
+    if(localStorage.getItem('StyleLock') > 0)
+      return;
 
-    console.log(index)
-
-    if(index != 0){
-      document.getElementById(StyleObjectId).innerHTML = `<link href="${StylesArray[index].associatedStyleSheet}" rel="stylesheet" type="text/css">`
+    //Bonds Check
+    if (StylesArray.length < index || index < 0){
+      currentStyle = defaultStyle;
     } else {
-      document.getElementById(StyleObjectId).innerHTML = ``
+      currentStyle = index;
     }
+
+    console.log(index);
+
+
+    //Toggle the Active/Inactive status for each theme
+    for (let x = 1; x <  StylesArray.length; x++){
+
+      if(x == currentStyle){
+        //Change Style Sheets
+        document.getElementById(StyleObjectId).innerHTML = `<link href="${StylesArray[x].associatedStyleSheet}" rel="stylesheet" type="text/css">`
+        document.getElementById(`StyleButton${x}`).innerHTML = `&#x${StylesArray[x].iconActive}`;
+
+      } else {
+        document.getElementById(`StyleButton${x}`).innerHTML = `&#x${StylesArray[x].iconDeactive}`;
+      }
+
+    }
+
   }
   catch(e) {
     console.log(e)
@@ -80,31 +102,22 @@ function switchStyle(index){
 
 }
 
-function lockStyle(index){
+function lockStyle(){
 
-  if(window.localStorage.getItem("StyleLock") == index){
-    unlockStyle();
-    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesArray[index].iconDeactive}`;
-    switchStyle(contextStyleSelection());
+  //Remove the lock, switch theme
+  if(window.localStorage.getItem("StyleLock") > 0){
+    document.getElementById(`StyleButton0`).innerHTML = `&#x${StylesArray[0].iconDeactive}`;
+    window.localStorage.setItem('StyleLock', -1);
+    currentStyle = contextStyleSelection();
+    switchStyle(currentStyle);
 
-  } else {
+  } 
+  //Add the Lock
+  else {
+    document.getElementById(`StyleButton0`).innerHTML = `&#x${StylesArray[0].iconActive}`;
+    window.localStorage.setItem('StyleLock', currentStyle);
 
-    let oldIndex = window.localStorage.getItem('StyleLock');
-
-    if(oldIndex != -1){
-      document.getElementById(`StyleButton${oldIndex}`).innerHTML = `&#x${StylesArray[oldIndex].iconDeactive}`;
-    }
-
-    window.localStorage.setItem('StyleLock', index);
-    document.getElementById(`StyleButton${index}`).innerHTML = `&#x${StylesArray[index].iconActive}`;
-
-    switchStyle(index);
   }
-}
-
-
-function unlockStyle(){
-  window.localStorage.setItem('StyleLock', -1);
 }
 
 function contextStyleSelection(){
