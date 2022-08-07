@@ -23,7 +23,7 @@ body {
 	column-gap: 1vw;
 	row-gap: 5px;
 
-	grid-template-columns: 10vw 85vw;
+	grid-template-columns: 15vw 80vw;
 	grid-template-rows: auto auto;
 
 }
