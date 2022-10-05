@@ -1,51 +1,65 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+  <title> FireworkPenguin's Website </title>
 
-		<title> Dice Roller </title>
-		<meta charset="UTF-8">
-		<meta name="description" content="My Page">
+  <meta charset="UTF-8">
+  <meta name="description" content="Home Page">
+  <meta name="author" content="FireworkPenguin">
+  <meta name="keywords" content="Anders, Maria, Sonstenes, Developer, Programmer, Web">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<meta name="author" content="FireworkPenguin">
-		<link href="/assets/css/plain.css" rel="stylesheet" type="text/css">
-
-    <div id="styleizedWebpage">
-    </div>
-
-    <!-- Style Adjust Proceedure-->
-    <script src="/assets/scripts/styleSector.js"> </script>
-
-  </head>
+  <link href="/assets/css/layout.css" rel="stylesheet" type="text/css">
+  <link href="/assets/css/sidebar.css" rel="stylesheet" type="text/css">
 
   <body class="primary_layout">
 
+    <div id="styleizedWebpage" style="display:none">
+      <link href="/assets/css/themes/day.css" rel="stylesheet" type="text/css">
+    </div>
+  
+    <!-- Style Adjust Proceedure-->
+    <script src="/assets/scripts/styleSector.js"> </script>
+
 		<!-- Side bar Area	-->
     <div class="sidebar">
-      <div class="webpageTitle  sidebarButton">
+      
+      <div class="sidebarElement webpageTitle">
         <a href="/"> <p> FireworkPenguin Homepage </p> </a>
       </div>
 
-      
-      <div class="sidebarButton sidebarButton1" style="grid-column: 2; grid-row: 1;" > <a href=""> Image Gallery </a> </div>
-    	<div class="sidebarButton sidebarButton2" style="grid-column: 2; grid-row: 2;"> <a href="/projects/directory.html"> Projects </a> </div>
-      <div class="sidebarButton sidebarButton3" style="grid-column: 2; grid-row: 3;"> <a href=""> Empty </a> </div>
-    	<div class="sidebarButton sidebarButton4" style="grid-column: 2; grid-row: 4;"> <a href="/common/about.html"> Contact </a> </div>
+      <div class="sidebarElement sidebarButton sidebarButton1" > <a href="/#about"> About </a> </div>
+    	<div class="sidebarElement sidebarButton sidebarButton2" > <a href="/#projects"> Projects </a> </div>
+      <div class="sidebarElement sidebarButton sidebarButton3" > <a href=""> Empty </a> </div>
+    	<div class="sidebarElement sidebarButton sidebarButton4" > <a href="/#contact"> Contact </a> </div>
 
       <br>
 
-      <div class="sidebarStyleSelect" style="grid-column: 2; grid-row: 6;">
-        <div id="StyleButton0" style="display:none; grid-column: 2; grid-row: 3;" onclick="lockStyle(0)"> &#x1F4D6; </div>
-        <div id="StyleButton1" style="grid-column: 1; grid-row: 3;" onclick="lockStyle(1)"> &#x2600; </div>
-        <div id="StyleButton2" style="grid-column: 3; grid-row: 3;" onclick="lockStyle(2)"> &#x1F315; </div>
+      <div class="sidebarStyleSelect">
+
+        <div class="styleSelectionMenuTitle"> Site Theme </div>
+
+        <div class="styleSelectItem styleSelectTitle"> Reset Theme </div>
+        <div id="StyleButton-1" class="styleSelectItem styleSelectImage" onclick="resetStyle()"> &#x1F504; </div>
+
+        <div class="styleSelectItem styleSelectTitle"> Lock Theme </div>
+        <div id="StyleButton0"  class="styleSelectItem styleSelectImage" onclick="lockStyleToggle()"> &#x23F0; </div>
+
+        <div class="styleSelectItem styleSelectTitle"> Day Theme </div>
+        <div id="StyleButton1"  class="styleSelectItem styleSelectImage" onclick="switchStyleButton(1)"> &#x1F331; </div>
+
+        <div class="styleSelectItem styleSelectTitle"> Night Theme </div>
+        <div id="StyleButton2"  class="styleSelectItem styleSelectImage" onclick="switchStyleButton(2)"> &#x1F311; </div>
       </div>
+      
     </div>
+    
+
 
     <!-- Main Page -->
     <div class ="main">
 
       <div class ="articleSection" style="height:100%; width:100%; ">
-
 
         <div> Basic Demo of Dice Roller </div>
 
@@ -131,14 +145,20 @@
 
       </div>
 
+      </div>
+
     </div>
 
     <!-- Footer Area -->
 
     <div class="feet">
-      <div> This site was created by: FireworkPenguin </div>
-    	<div> Hosted On: Github Pages </div>
-      <div> <a href="/common/credits.html"> Credits</a></div>
+
+      <div class="feet_dec">
+        <div> This site was created by: FireworkPenguin </div>
+        <div> Hosted On: Github Pages </div>
+        <div> <a href="/common/credits.html"> Credits</a></div>
+      </div>
     </div>
+
   </body>
 </html>
