@@ -1,0 +1,26 @@
+.media_layout{
+
+    display: grid; 
+    
+    grid-template-rows: 480px 15px 100px; 
+    grid-template-columns: auto 854px auto; 
+    
+    min-width:100%; padding: 10px;
+
+
+
+
+}
+
+@media only screen and (max-width: 853px) {
+
+    .media_layout{
+
+        overflow: scroll;
+
+        grid-template-rows: max-content 15px 100px; 
+        grid-template-columns: auto 90% auto; 
+
+
+    }	
+}

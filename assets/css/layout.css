@@ -5,7 +5,14 @@ html{
 
 }
 
+@font-face {
+	font-family: dejavuSansBook;
+	src: url(/assets/fonts/dejavu-sans.book.ttf);
+}
+
 body {
+
+	font-family: dejavuSansBook;
 
 	max-width: 100%;
 	min-height: 100%;
@@ -248,7 +255,7 @@ table, th, td {
 
 	.feet{
 
-		grid-column: 1;
+		grid-column: 2;
 		grid-row: 3;
 
 	}
@@ -256,7 +263,7 @@ table, th, td {
 	.main{
 
 		grid-column: 1;
-		grid-row: 2;
+		grid-row: 1;
 
 
 	}
