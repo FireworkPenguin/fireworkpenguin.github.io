@@ -6,10 +6,7 @@
     grid-template-columns: auto 854px auto; 
     
     min-width:100%; padding: 10px;
-
-
-
-
+    
 }
 
 @media only screen and (max-width: 853px) {
